@@ -9,13 +9,12 @@ User = get_user_model()
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['text', 'group']
-
-    def validate_not_empty(self):
-        data = self.cleaned_data['text']
-        if data == '':
-            raise forms.ValidationError(
-                'А кто пост будет писать, Пушкин?',
-                params={'data': data},
-            )
-        return data
+        fields = ('text', 'group')
+        labels = {
+            'text': 'Текст записи',
+            'group': 'Группа'
+        }
+        help_texts = {
+            'text': 'Напишите сюда текст вашей записи.',
+            'group': 'Группа, к которой отнести запись(необязательно).'
+        }

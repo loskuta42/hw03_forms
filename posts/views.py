@@ -15,15 +15,16 @@ def group_posts(request, slug):
 
 
 def new_post(request):
-    if request.method == 'POST':
+    if request.method != "POST":
         form = PostForm(request.POST)
-        if form.is_valid():
-            text = form.cleaned_data['text']
-            group = form.cleaned_data['group']
-            username = request.user.username
-            author = User.objects.get(username=username)
-            Post.objects.create(author=author, text=text, group=group)
-            return redirect('/')
-        return render(request, 'new.html', {'form': form})
+        return render(request, "new.html", {"form": form})
     form = PostForm(request.POST)
-    return render(request, 'new.html', {'form': form})
+    if not form.is_valid():
+        return render(request, "new.html", {"form": form})
+    text = form.cleaned_data["text"]
+    group = form.cleaned_data["group"]
+    username = request.user.username
+    author = User.objects.get(username=username)
+    Post.objects.create(author=author, text=text, group=group)
+    return redirect("index")
+
