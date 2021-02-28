@@ -27,4 +27,3 @@ def new_post(request):
     author = User.objects.get(username=username)
     Post.objects.create(author=author, text=text, group=group)
     return redirect("index")
-

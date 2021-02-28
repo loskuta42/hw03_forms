@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.forms import ModelForm
 from .models import Post
-from django import forms
 
 User = get_user_model()
 
