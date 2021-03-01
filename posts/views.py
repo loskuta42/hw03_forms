@@ -21,9 +21,8 @@ def new_post(request):
     form = PostForm(request.POST)
     if not form.is_valid():
         return render(request, "new.html", {"form": form})
-    text = form.cleaned_data["text"]
-    group = form.cleaned_data["group"]
+    post = form.save(commit=False)
     username = request.user.username
-    author = User.objects.get(username=username)
-    Post.objects.create(author=author, text=text, group=group)
+    post.author = User.objects.get(username=username)
+    post.save()
     return redirect("index")
