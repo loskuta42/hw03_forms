@@ -21,3 +21,9 @@ posts/static/
 db.sqlite3
 
 *.log
+
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
