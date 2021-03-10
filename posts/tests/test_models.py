@@ -10,9 +10,7 @@ class PostModelTest(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.user = User.objects.create_user(username='testuser')
-        # Создаем второй клиент
         cls.authorized_client = Client()
-        # Авторизуем пользователя
         cls.authorized_client.force_login(cls.user)
         cls.group = Group.objects.create(
             title='test_group',
