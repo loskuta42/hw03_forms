@@ -5,7 +5,7 @@ from posts.models import Group
 User = get_user_model()
 
 
-class StaticURLTests(TestCase):
+class PostURLTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -28,22 +28,22 @@ class StaticURLTests(TestCase):
 
     def test_homepage(self):
         """Страница / доступна любому пользователю."""
-        response = StaticURLTests.guest_client.get('/')
+        response = PostURLTests.guest_client.get('/')
         self.assertEqual(response.status_code, 200)
 
     def test_group_slug(self):
         """Страница /group/test-slug/ доступна любому пользователю."""
-        response = StaticURLTests.guest_client.get('/group/test-slug/')
+        response = PostURLTests.guest_client.get('/group/test-slug/')
         self.assertEqual(response.status_code, 200)
 
     def test_new(self):
         """Страница /new/ доступна авторизованному пользователю."""
-        response = StaticURLTests.authorized_client.get('/new/')
+        response = PostURLTests.authorized_client.get('/new/')
         self.assertEqual(response.status_code, 200)
 
     def test_urls_uses_correct_template(self):
         """URL-адрес использует соответствующий шаблон."""
-        for template, url in StaticURLTests.templates_url_names.items():
+        for template, url in PostURLTests.templates_url_names.items():
             with self.subTest(url=url):
                 response = self.authorized_client.get(url)
                 self.assertTemplateUsed(response, template)
