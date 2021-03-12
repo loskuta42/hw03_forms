@@ -25,10 +25,10 @@ class PostFormTests(TestCase):
 
     def test_create_post(self):
         posts_count = Post.objects.count()
-        choice_field = forms.ChoiceField(widget=forms.Select).widget.choices()
+        group_field = PostFormTests.group.id
         form_data = {
             'text': 'test_post',
-            'group': choice_field,
+            'group': group_field,
         }
         response = self.authorized_client.post(
             reverse('new_post'),
@@ -39,8 +39,7 @@ class PostFormTests(TestCase):
         self.assertEqual(Post.objects.count(), posts_count+1)
         self.assertTrue(
             Post.objects.filter(
-                group=PostFormTests.group,
-                text='test_post',
-#                author=User.objects.get(username='test_user')
+                group=PostFormTests.group.id,
+                text='test_post'
                 ).exists()
         )
